@@ -1,46 +1,58 @@
-# Schema Design
+# Data Access Objects
 
-#### Description
-You will interact with the provided database administration tool to craft a schema that matches a given specification
+---
 
-#### Duration
-1-2 hours
+## Description
+Create a series of Data Access Objects (DAOs) that will allow for clean, easy interaction with the database schema created in the Schema Design assignment.
 
-#### Skills
-Relational Database fundamentals such as Tables, Columns, Data Types, Primary & Foreign Keys, Relationships, Multiplicity, Join Tables, Administration Tools
-
-## Concept
-The concept of this assignment is to create a database schema that will represent People, their Location, and their Interests. This database is intended to be used to connect individuals who are in the same location and share interests.
+---
 
 ## Instructions
 
-* Create the three required tables (**Person**, **Location**, & **Interest**) along with any required *join tables*. Include the following listed columns in the designated tables, *along with any additonal columns required for join statements*
+Create a PersonDao class. Implement the following public methods in the PersonDao class. Note: You may implement any number of additional private methods to support the following required public methods.
+ 1. Implement a method get(id), where id is the primary key of the Person you want to retrieve
+ 2. Implement a save(Person) method such that:
+   - The data in the Person parameter is saved as a new entry in the database if the Id field is null
+   - The data in the Person parameter is used to update an existing entry in the database if the Id field is not null and already exists in the database
+   - An exception is thrown if the Id field is not null and does not already exist in the database
+ 4. Implement a findInterestGroup(Interest, Location) method that:
+   - Executes the Stored Procedure defined in the Schema Design Assignment
+   - Transforms the ResultSet obtained from executing the Stored Procedure into a Set<Person>
+   - Returns the Set<Person>
+ 
+Create the LocationDao and InterestDao classes
+ 1. Implement get(id) for both classes
+ 2. Implement save(Location) and save(Interest)
+ 3. Add a "location" field to the Person class tthat is the data type Location
+ 4. Add an "interests" field to the Person class that is the data type Set<Interest>
+ 5. Modify the get(id) method in the PersonDao to interact with the LocationDao and InterestDao in order to ensure that all Person objects retrieved have accurate data in their interests and location fields.
+ 6. Modify the save(Person) method in the PersonDao to also update the Location Table, the Interest Table, and any related Join Tables
+ 
+---
 
-1. Person
-  * Id (`Primary Key`)
-  * First Name
-  * Last Name
-  * Age
-  
-2. Location
-  * Id (`Primary Key`)
-  * City
-  * State
-  * Country
+## Steps
 
-3. Interest
-  * Id (`Primary Key`)
-  * Title
+* Create POJOS (Person, Location, Interest) to represent the tables in the database schema.
 
-* Set all `Id` fields to be *Auto-Generated Primary Keys*
+1. PersonDao
+  * id - Long
+  * firstName - String
+  * lastName - String
+  * age - Integer
+  * get(id)
+  * save(id)
+  * findInterestGroup(Interest, Location)
   
-* Add join columns and tables as neccesary to ensure that
-  1. A **Person** can have any number of **Interest**s
-  2. A **Person** must have one **Location**
-  
-* Write a SQL query that will find all **Person** entries that share at least one **Interest** and have the same **Location**
-  * Create a Stored Procedure based on that SQL query that takes an **Interest** and a **Location** as parameters, and returns a Result Set of all **Person** entries that share that **Interest** and **Location**
-  
-* Export the schema by using *Tools > Backup...*
+2. LocationDao
+  * id - Long
+  * city - String
+  * state - String
+  * country - String
+  * get(id)
+  * save(Location)
 
-* Add the .backup file to your local repository and issue a pull request
+3. InterestDao
+  * id - Long
+  * title - String
+  * get(id)
+  * save(Interest)
