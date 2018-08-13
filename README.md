@@ -26,7 +26,7 @@ Create the LocationDao and InterestDao classes
  3. Add a "location" field to the Person class tthat is the data type Location
  4. Add an "interests" field to the Person class that is the data type Set<Interest>
  5. Modify the get(id) method in the PersonDao to interact with the LocationDao and InterestDao in order to ensure that all Person objects retrieved have accurate data in their interests and location fields.
- 6. Modify the save(Person) method in the PersonDao to also update the Location Table, the Interest Table, and any related Join Tables
+ 6. Modify the save(Person) method in the PersonDao to also update the Location Table, the Interest Table, and any related Join Tables or Join Columns so that the contents of the saved Person object are stored accurately.
  
 ---
 
